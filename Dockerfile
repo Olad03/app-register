@@ -1,24 +1,15 @@
-FROM php:8.2-apache
+# Use pre-built PHP base image from Quay (already contains PHP binaries)
+FROM quay.io/saburi_adekanbi/test-app/test-app-php:1.0
 
-# Install system dependencies required to build PHP extensions
-RUN apt-get update && apt-get install -y \
-    gcc \
-    make \
-    libmariadb-dev \
-    && docker-php-ext-install mysqli pdo pdo_mysql \
-    && apt-get purge -y gcc make \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
-
-# Enable Apache rewrite (optional)
-RUN a2enmod rewrite
-
-# Copy application source
+# Copy application source code
 COPY . /var/www/html/
 
 # Fix permissions for OpenShift random UID
-RUN chown -R 1001:0 /var/www/html && chmod -R g+rwX /var/www/html
+RUN chown -R 1001:0 /var/www/html && \
+    chmod -R g+rwX /var/www/html
 
+# Expose HTTP port
 EXPOSE 80
-CMD ["apache2-foreground"]
 
+# Start Apache (assumes base image already has Apache configured)
+CMD ["apache2-foreground"]
