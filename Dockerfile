@@ -1,7 +1,9 @@
 FROM php:8.2-apache-bookworm
 
+# Prevent CI hangs
 ENV MAKEFLAGS="-j1"
 
+# Install mysqli extension (mysqlnd-based)
 RUN docker-php-ext-install mysqli
 
 # OpenShift compatibility
