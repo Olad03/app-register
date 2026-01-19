@@ -1,20 +1,13 @@
-FROM php:8.2-apache-bookworm
+FROM registry.access.redhat.com/ubi9/php-83
 
-ENV MAKEFLAGS="-j1"
+# Copy application
+COPY . /opt/app-root/src
 
-# Build mysqli
-RUN docker-php-ext-install mysqli \
- && echo "extension=mysqli" > /usr/local/etc/php/conf.d/20-mysqli.ini
-
-# OpenShift compatibility
-RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
- && sed -i 's/:80/:8080/g' /etc/apache2/sites-enabled/000-default.conf \
- && echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-COPY . /var/www/html
-
-RUN chgrp -R 0 /var/www/html \
- && chmod -R g+rwX /var/www/html
+# OpenShift permissions
+RUN chgrp -R 0 /opt/app-root/src \
+ && chmod -R g+rwX /opt/app-root/src
 
 EXPOSE 8080
-CMD ["apache2-foreground"]
+
+# Required by OpenShift S2I images
+CMD ["run-httpd"]
