@@ -1,10 +1,10 @@
 FROM php:8.2-apache-bookworm
 
-# Prevent CI hangs
 ENV MAKEFLAGS="-j1"
 
-# Install mysqli extension (mysqlnd-based)
-RUN docker-php-ext-install mysqli
+# Build mysqli
+RUN docker-php-ext-install mysqli \
+ && docker-php-ext-enable mysqli
 
 # OpenShift compatibility
 RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
