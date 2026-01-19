@@ -2,9 +2,8 @@ FROM php:8.2-apache-bookworm
 
 ENV MAKEFLAGS="-j1"
 
-# Build mysqli
-RUN docker-php-ext-install mysqli \
- && docker-php-ext-enable mysqli
+# Install mysqli (mysqlnd-based, external DB ready)
+RUN docker-php-ext-install mysqli
 
 # OpenShift compatibility
 RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
