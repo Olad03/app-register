@@ -5,3 +5,5 @@
 * Connect to your database via a database client and import the db.sql file for the users table creation.
 * Run the app, you can test locally by running the command `php -S localhost:9090`, the index.php will be served. 
 * Visit localhost:9090 on a browser to interact with the app. # test-app
+# app-register
+# app-register
