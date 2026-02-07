@@ -44,7 +44,7 @@ if (isset($_POST['username'])) {
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0c1445, #2b0b3f);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,7 +128,7 @@ input {
 <div class="form-shell">
 
     <h1>BluDive Registration Application</h1>
-    <p class="subtitle">This is a Sample Registration App Version 1.1</p>
+    <p class="subtitle">This is a Sample Registration App Version 2.1</p>
 
     <!-- FORM FIELD NAMES UNCHANGED -->
     <form method="POST">
