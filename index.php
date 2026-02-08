@@ -237,7 +237,7 @@ select {
 <div class="form-shell">
 
     <h1>BluDive Registration Application</h1>
-    <p class="subtitle">Sample Registration App – Version 1.2</p>
+    <p class="subtitle">This is Sample Registration App – Version 6.5</p>
 
     <form method="POST">
 
