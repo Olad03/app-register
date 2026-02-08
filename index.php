@@ -1,4 +1,3 @@
-
 <?php
 require('db.php'); // Include the database connection file
 
@@ -6,13 +5,14 @@ if (isset($_POST['username'])) {
 
     $username = mysqli_real_escape_string($con, stripslashes($_POST['username']));
     $email    = mysqli_real_escape_string($con, stripslashes($_POST['email']));
+    $phone    = mysqli_real_escape_string($con, stripslashes($_POST['phone']));
     $password = mysqli_real_escape_string($con, stripslashes($_POST['password']));
 
     $trn_date = date("Y-m-d H:i:s");
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO users (username, email, password, trn_date)
-              VALUES ('$username', '$email', '$hashed_password', '$trn_date')";
+    $query = "INSERT INTO users (username, email, phone, password, trn_date)
+              VALUES ('$username', '$email', '$phone', '$hashed_password', '$trn_date')";
 
     $result = mysqli_query($con, $query);
 
@@ -35,7 +35,7 @@ if (isset($_POST['username'])) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Event Evaluation</title>
+<title>BluDive Registration</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -44,7 +44,7 @@ if (isset($_POST['username'])) {
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: linear-gradient(135deg, #0c1445, #2b0b3f);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,12 +84,20 @@ label span {
     color: #ff6b6b;
 }
 
-input {
+input,
+select {
     width: 100%;
     padding: 15px 18px;
     border-radius: 8px;
     border: none;
     font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.phone-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 15px;
     margin-bottom: 25px;
 }
 
@@ -118,7 +126,13 @@ input {
 }
 
 @media(max-width:768px){
-    .form-shell { padding:35px; }
+    .form-shell {
+        padding: 35px;
+    }
+
+    .phone-row {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
@@ -128,9 +142,8 @@ input {
 <div class="form-shell">
 
     <h1>BluDive Registration Application</h1>
-    <p class="subtitle">This is a Sample Registration App Version 2.1</p>
+    <p class="subtitle">This is Sample Registration App – Version 2.1 </p>
 
-    <!-- FORM FIELD NAMES UNCHANGED -->
     <form method="POST">
 
         <label>Your Name <span>*</span></label>
@@ -138,6 +151,15 @@ input {
 
         <label>Email Address <span>*</span></label>
         <input type="email" name="email" placeholder="Enter your email" required>
+
+        <!-- PHONE NUMBER (NOW PART OF BACKEND) -->
+        <label>Phone Number <span>*</span></label>
+        <div class="phone-row">
+            <select name="country_code" disabled>
+                <option selected>+234</option>
+            </select>
+            <input type="tel" name="phone" placeholder="8012345678" required>
+        </div>
 
         <label>Password <span>*</span></label>
         <input type="password" name="password" placeholder="Create a password" required>
