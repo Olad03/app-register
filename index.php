@@ -108,7 +108,7 @@ h1 {
 
 <div class="form-shell">
 
-    <h1>Registration Successful 🎉</h1>
+    <h1>Registration Successful </h1>
     <p class="subtitle">Your account has been created successfully</p>
 
     <div class="details">
